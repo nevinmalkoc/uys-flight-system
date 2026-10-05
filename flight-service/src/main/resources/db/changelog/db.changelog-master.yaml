@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1-create-flights-table
+      author: nevin
+      preConditions:
+        - onFail: MARK_RAN
+          not:
+            tableExists:
+              tableName: flights
+      changes:
+        - createTable:
+            tableName: flights
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: flight_number
+                  type: VARCHAR(20)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: departure_station
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: arrival_station
+                  type: VARCHAR(10)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: departure_time
+                  type: TIMESTAMP
+              - column:
+                  name: version
+                  type: INT
+                  defaultValueNumeric: 1
+              - column:
+                  name: status
+                  type: VARCHAR(30)
+              - column:
+                  name: is_current
+                  type: BOOLEAN
+                  defaultValueBoolean: true

@@ -1,0 +1,95 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-reference-tables
+      author: uys-team
+      changes:
+        # 1. AIRLINES
+        - createTable:
+            tableName: airlines
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: iata_code, type: VARCHAR(3), constraints: { nullable: false, unique: true } }
+              - column: { name: icao_code, type: VARCHAR(4), constraints: { unique: true } }
+              - column: { name: name, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: country, type: VARCHAR(100) }
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true, constraints: { nullable: false } }
+            preConditions:
+              - onFail: MARK_RAN
+              - not:
+                  - tableExists:
+                      tableName: airlines
+
+  - changeSet:
+      id: 002-create-stations-table
+      author: uys-team
+      changes:
+        - createTable:
+            tableName: stations
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: iata_code, type: VARCHAR(3), constraints: { nullable: false, unique: true } }
+              - column: { name: icao_code, type: VARCHAR(4), constraints: { unique: true } }
+              - column: { name: name, type: VARCHAR(150), constraints: { nullable: false } }
+              - column: { name: city, type: VARCHAR(100) }
+              - column: { name: country, type: VARCHAR(100) }
+              - column: { name: timezone, type: VARCHAR(50) }
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true, constraints: { nullable: false } }
+            preConditions:
+              - onFail: MARK_RAN
+              - not:
+                  - tableExists:
+                      tableName: stations
+
+  - changeSet:
+      id: 003-create-aircrafts-table
+      author: uys-team
+      changes:
+        - createTable:
+            tableName: aircrafts
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: tail_number, type: VARCHAR(20), constraints: { nullable: false, unique: true } }
+              - column: { name: model, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: capacity, type: INT }
+              - column: { name: airline_code, type: VARCHAR(3) }
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true, constraints: { nullable: false } }
+            preConditions:
+              - onFail: MARK_RAN
+              - not:
+                  - tableExists:
+                      tableName: aircrafts
+
+  - changeSet:
+      id: 004-create-routes-table
+      author: uys-team
+      changes:
+        - createTable:
+            tableName: routes
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: origin, type: VARCHAR(4), constraints: { nullable: false } }
+              - column: { name: destination, type: VARCHAR(4), constraints: { nullable: false } }
+              - column: { name: distance_km, type: INT }
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true, constraints: { nullable: false } }
+            preConditions:
+              - onFail: MARK_RAN
+              - not:
+                  - tableExists:
+                      tableName: routes
+
+  - changeSet:
+      id: 005-create-flight-types-table
+      author: uys-team
+      changes:
+        - createTable:
+            tableName: flight_types
+            columns:
+              - column: { name: id, type: BIGINT, autoIncrement: true, constraints: { primaryKey: true, nullable: false } }
+              - column: { name: code, type: VARCHAR(10), constraints: { nullable: false, unique: true } }
+              - column: { name: description, type: VARCHAR(100), constraints: { nullable: false } }
+              - column: { name: is_active, type: BOOLEAN, defaultValueBoolean: true, constraints: { nullable: false } }
+            preConditions:
+              - onFail: MARK_RAN
+              - not:
+                  - tableExists:
+                      tableName: flight_types

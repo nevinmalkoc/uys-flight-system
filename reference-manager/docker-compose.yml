@@ -1,0 +1,18 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: uys-postgres
+    environment:
+      POSTGRES_USER: uys_user
+      POSTGRES_PASSWORD: uys_pass
+      POSTGRES_DB: reference_db
+    ports:
+      - "5432:5432"
+    restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: uys-redis
+    ports:
+      - "6379:6379"
+    restart: always

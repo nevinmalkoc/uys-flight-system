@@ -1,0 +1,7 @@
+**/target/
+**/*.jar
+**/node_modules/
+**/.idea/
+**/*.iml
+**/.DS_Store
+**/dist/

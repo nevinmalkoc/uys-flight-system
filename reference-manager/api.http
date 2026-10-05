@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/v1/airlines
+Content-Type: application/json
+
+{
+  "name": "Turk Hava Yollari",
+  "iataCode": "TK"
+}
